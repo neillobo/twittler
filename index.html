@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="jquery.js"></script>
+      
+    
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="data_generator.js"></script>
+     <script src="js/bootstrap.js"> </script>
+   
+<link rel=”stylesheet” href=”css/bootstrap.css”  type=”text/css”/>
   </head>
   <body>
     <script>
@@ -12,12 +17,18 @@
         //$body.html('');
 
         var idx=index = streams.home.length - 1;
+        
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          timestamp = tweet.created_at.toString();
-            $tweet.text(index+'@' + tweet.user + ': ' + tweet.message + "    Tweeted on " + timestamp);
+          $tweet.text(index+'@' + tweet.user + ': ' + tweet.message);
+
+            var timestamp = tweet.created_at.toString();
+            var $timestamp=$('<div>'+"Tweeted on: "+timestamp+'</div>');
+
+            
           $tweet.appendTo('.tweets');
+          $timestamp.appendTo('.tweets');
           index -= 1;
         }
 
@@ -30,8 +41,12 @@
             while(i<=len){
             var tweet = streams.home[i];
             var $tweet = $('<div></div>');
-            timestamp = tweet.created_at.toString();
-            $tweet.text(i+'@' + tweet.user + ': ' + tweet.message + "    Tweeted on " + timestamp);
+            $tweet.text(i+'@' + tweet.user + ': ' + tweet.message);
+
+            var timestamp = tweet.created_at.toString();
+            var $timestamp=$('<div>'+"Tweeted on: "+timestamp+'</div>');
+
+            $timestamp.prependTo('.tweets');
             $tweet.prependTo('.tweets');
             i++;
             }
@@ -45,5 +60,7 @@
     <h2>Twitter Stream</h2>
     <button class="view" enabled>View New Tweets</button>
     <ul class="tweets">
+
+<link rel=”stylesheet” href=”css/bootstrap.css”  type=”text/css”/>
   </body>
 </html>
