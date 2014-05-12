@@ -15,7 +15,8 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text(index+'@' + tweet.user + ': ' + tweet.message);
+          timestamp = tweet.created_at.toString();
+            $tweet.text(index+'@' + tweet.user + ': ' + tweet.message + "    Tweeted on " + timestamp);
           $tweet.appendTo('.tweets');
           index -= 1;
         }
@@ -29,7 +30,8 @@
             while(i<=len){
             var tweet = streams.home[i];
             var $tweet = $('<div></div>');
-            $tweet.text(i+'@' + tweet.user + ': ' + tweet.message);
+            timestamp = tweet.created_at.toString();
+            $tweet.text(i+'@' + tweet.user + ': ' + tweet.message + "    Tweeted on " + timestamp);
             $tweet.prependTo('.tweets');
             i++;
             }
