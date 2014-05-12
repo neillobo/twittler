@@ -8,20 +8,40 @@
     <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        //var $body = $('body');
+        //$body.html('');
 
-        var index = streams.home.length - 1;
+        var idx=index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          $tweet.text(index+'@' + tweet.user + ': ' + tweet.message);
+          $tweet.appendTo('.tweets');
           index -= 1;
         }
+
+        $('.view').on('click',function(){
+          
+          var len= streams.home.length-1
+          console.log(len);
+          console.log(idx);
+          var i=idx;
+            while(i<=len){
+            var tweet = streams.home[i];
+            var $tweet = $('<div></div>');
+            $tweet.text(i+'@' + tweet.user + ': ' + tweet.message);
+            $tweet.prependTo('.tweets');
+            i++;
+            }
+            idx=len;
+
+          });
 
       });
 
     </script>
+    <h2>Twitter Stream</h2>
+    <button class="view" enabled>View New Tweets</button>
+    <ul class="tweets">
   </body>
 </html>
