@@ -11,28 +11,65 @@
   </head>
   <body>
     <script>
+function displayUserTweets(userId){
+    var uin = streams.users[userId].length-1;
+        $('#view').html("See All User Stream");
 
+          $('.tweets').children().remove(); 
+           while(uin>=0){
+              var tweet = streams.users[userId][uin];
+              var $tweet = $('<div></div>');
+              console.log(tweet);
+              console.log(tweet.message);
+             $tweet.text(tweet.message); 
+
+              var time = tweet.created_at.toTimeString().substring(0,5);
+              var date = tweet.created_at.toDateString();
+              var timestamp = time+" "+date;
+              var $timestamp=$('<div>'+"Tweeted on: "+timestamp+'</div>');
+
+              var $user=$('<div class="username"><u>'+'@'+tweet.user.toString()+'</u></div>');
+               
+            
+              $user.appendTo('.tweets');
+              $tweet.appendTo('.tweets');
+              $timestamp.appendTo('.tweets');
+
+              uin -= 1;
+      }
+}
       $(document).ready(function(){
-        //var $body = $('body');
-        //$body.html('');
 
         var idx=index = streams.home.length - 1;
         
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text(index+'@' + tweet.user + ': ' + tweet.message);
+          $tweet.text(tweet.message); 
 
-            var timestamp = tweet.created_at.toString();
+            var time = tweet.created_at.toTimeString().substring(0,5);
+            var date = tweet.created_at.toDateString();
+            var timestamp = time+" "+date;
             var $timestamp=$('<div>'+"Tweeted on: "+timestamp+'</div>');
 
+            var $user=$('<div class="username"><u>'+'@'+tweet.user.toString()+'</u></div>');
+            $user.attr("id",tweet.user.toString()); 
             
+          $user.appendTo('.tweets');
           $tweet.appendTo('.tweets');
           $timestamp.appendTo('.tweets');
+
           index -= 1;
         }
+        $('.username').on('click',function(){
+
+            var userId = jQuery(this).attr("id");
+            displayUserTweets(userId);
+        });
+
 
         $('.view').on('click',function(){
+
           
           
           var len= streams.home.length-1
@@ -52,22 +89,19 @@
 
             //Tweet User
             var $user=$('<div class="username" id="Hello"><u>'+'@'+tweet.user.toString()+'</u></div>');
-            //$('user').attr=("id","Hello");
+            $user.attr("id",tweet.user.toString()); 
            
             
             $timestamp.prependTo('.tweets');
             $tweet.prependTo('.tweets');         
             $user.prependTo('.tweets');
             
-            jQuery('<a>').attr('href', 'www.google.com').text('Go To Google');
-            $('<a>').appendTo('.tweets')
-            
             i++;
-            
             }
             idx=len;
             $('.username').on('click',function(){
-              console.log(event.target.id);
+             var userId = jQuery(this).attr("id");
+              displayUserTweets(userId);
             });
 
           });
@@ -77,7 +111,7 @@
 
     </script>
     <h2>Twitter Stream</h2>
-    <button class="view" enabled>View New Tweets</button>
+    <button id="view" enabled>View New Tweets</button>
     <ul class="tweets">
 
 <link rel=”stylesheet” href=”css/bootstrap.css”  type=”text/css”/>
